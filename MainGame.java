@@ -16,6 +16,7 @@ public class MainGame {
 	GraphicsConsole gc = new GraphicsConsole(SCRW,SCRH);
 
 	Player player;
+	Enemy enemy;
 
 	//The game controller
 	MainGame(){
@@ -25,7 +26,7 @@ public class MainGame {
 		while(gc.getKeyCode() != 'Q') {
 
 			movePlayer();
-
+			moveEnemy();
 			drawGraphics();
 
 			gc.sleep(SLEEP);
@@ -43,30 +44,40 @@ public class MainGame {
 		gc.setBackgroundColor(Color.BLACK);
 		gc.setColor(Color.CYAN);
 		player = new Player(80, SCRH/2, 60,40);
+		enemy = new Enemy(SCRW, SCRH);
 	}
 
 	//If a key has been pressed, move the player
 	void movePlayer(){
 
-		if (gc.isKeyDown(37)) {	//isKeyDown uses keyCodes. Left arrow
+		//arrow keys: L=37, R=39, U=38, D=40 . Use these numbers in place of 'A' 'S' ...
+		if (gc.isKeyDown('A')) {	//isKeyDown uses keyCodes. Left 
 			if (player.x > 0) player.x -= player.speed;
 		}
-		if (gc.isKeyDown(39)) {	//right
+		if (gc.isKeyDown('D')) {	//right
 			if (player.x < SCRW-player.width) player.x += player.speed;
 		}
-		if (gc.isKeyDown(38)) {	//up
-			if (player.y> 0) player.y -= player.speed;
+		if (gc.isKeyDown('W')) {	//up
+			if (player.y > 0) player.y -= player.speed;
 		}
-		if (gc.isKeyDown(40)) {	//down
+		if (gc.isKeyDown('S')) {	//down
 			if (player.y < SCRH-player.height) player.y += player.speed;
 		}
 	}
+
+	void moveEnemy() {
+		enemy.y += enemy.speed;
+		if (enemy.y + enemy.height < 0 && enemy.speed < 0) enemy.y = SCRH;
+		if (enemy.y > SCRH && enemy.speed > 0) enemy.y = 0;
+	}
 	
 	void drawGraphics(){
-//		gc.setColor(Color.CYAN);
 		synchronized(gc){
 			gc.clear();
+			gc.setColor(Color.CYAN);
 			gc.fillRect(player.x, player.y, player.width, player.height);
+			gc.setColor(Color.GREEN);
+			gc.fillOval(enemy.x, enemy.y, enemy.width, enemy.height);
 		}
 	}
 
