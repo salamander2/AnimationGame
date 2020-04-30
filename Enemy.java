@@ -20,6 +20,6 @@ class Enemy extends Rectangle{
 		this.speed = speed;
 
 		//DEBUG
-		System.out.println("Enemy speed=" + speed);
+		//System.out.println("Enemy speed=" + speed);
 	}
 }
