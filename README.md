@@ -21,10 +21,11 @@ Done.
 
 ## Stage 4 : change single enemy into arraylist of enemies
 
-Done. 
+Done.  `MainGame.java` is the only file that's been changed.
 
 ## Stage 5 : make winning conditions
 
-Done. There are various ways of doing this. I've just added this to stage 4 instead of making a new stage for such a small thing.
+Done and combined with stage 4 (there's no point making a whole stage just for something so small). 
+_There are various ways of making winning conditions. Yours might be different, that's okay._
 
 To see any future stages, go back to [main branch](https://github.com/salamander2/AnimationGame) and then follow links to the most recent branch
