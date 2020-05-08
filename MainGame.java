@@ -116,6 +116,8 @@ public class MainGame {
 				player.lives--;
 				player.x = 100;  // if we don't do this, then the player keeps colliding with the enemy and loses all lives right away.
 				//enemy = new Enemy(SCRW, SCRH);	//recreate the enemy with new random settings
+				enemyList.remove(enemy);
+				break;	//this must happen if we use "remove" while inside a for-each loop
 			}
 		}
 	}
