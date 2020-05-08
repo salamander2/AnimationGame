@@ -1,4 +1,4 @@
-# AnimationGame -- Stage 3 code
+# AnimationGame -- Stage 4 code
 Programming a side scrolling animation game for ICS3U/4C
 
 :boom: Requires HSA2 graphics library :boom: 
@@ -18,4 +18,9 @@ Done.
 ## Stage 3 : handle collisions with enemy
 
 Done. 
+
+## Stage 4 : change single enemy into arraylist of enemies
+
+Done. 
+
 To see any future stages, go back to main branch and then follow links to the branch called Stage3
