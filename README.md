@@ -23,4 +23,8 @@ Done.
 
 Done. 
 
-To see any future stages, go back to main branch and then follow links to the branch called Stage3
+## Stage 5 : make winning conditions
+
+Done. There are various ways of doing this. I've just added this to stage 4 instead of making a new stage for such a small thing.
+
+To see any future stages, go back to [main branch](https://github.com/salamander2/AnimationGame) and then follow links to the most recent branch
