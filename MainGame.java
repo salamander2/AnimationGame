@@ -16,6 +16,8 @@ public class MainGame {
 	final static int SCRH=800;
 	final static int SLEEP = 1;
 	final static int MAXENEMIES = 10;
+	final static int MAXBULLETS = 7;
+	final static int SHOOTINGDELAY = 300; //milliseconds
 
 	//status constants
 	final static int PLAYING = 1;
@@ -27,6 +29,7 @@ public class MainGame {
 
 	Player player;
 	ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
+	ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
 
 	//The game controller
 	MainGame(){
@@ -36,8 +39,11 @@ public class MainGame {
 		int status = PLAYING;
 		while(status == PLAYING) {
 
+			if (gc.isKeyDown(' ') ) shoot();
+			moveBullets();
+			checkCollision2();
 			movePlayer();
-			checkCollision();	
+			checkCollision();
 			for(Enemy en : enemyList) {
 				moveEnemy(en);
 			}
@@ -77,6 +83,18 @@ public class MainGame {
 		}
 	}
 
+	long lastTime = System.currentTimeMillis();
+	void shoot(){
+		//if (bulletList.size() >= MAXBULLETS) return;
+		long now = System.currentTimeMillis();
+		int delay = (int)(now - lastTime);
+		if (delay < SHOOTINGDELAY) return;
+
+		lastTime = now;
+		bulletList.add(new Bullet(player.x+player.width, player.y));
+
+	}
+
 	//If a key has been pressed, move the player
 	void movePlayer(){
 
@@ -99,7 +117,19 @@ public class MainGame {
 	//for now, the player wins if he reaches the right side of the screen.
 	boolean checkWin() {
 		if (player.x + player.width >= SCRW) return true;
+		if (enemyList.size() == 0) return true;
 		return false;
+	}
+
+	void moveBullets() {
+		for (Bullet b : bulletList) {
+			b.x += b.speed;
+		}
+		//remove bullets that are offscreen
+		for (int i=bulletList.size()-1; i >= 0; i--) {
+			Bullet b = bulletList.get(i);
+			if (b.x > SCRW) bulletList.remove(i);
+		}
 	}
 
 	void moveEnemy(Enemy enemy) {
@@ -122,6 +152,20 @@ public class MainGame {
 		}
 	}
 
+	void checkCollision2() {
+		//for (Bullet b: bulletList) {
+		for (int i=bulletList.size()-1; i >= 0; i--) {
+			Bullet b = bulletList.get(i);
+			for (Enemy en : enemyList) {
+				if (b.intersects(en)) {
+					enemyList.remove(en);
+					bulletList.remove(b);
+					break;
+				}
+			}	
+		}
+	}
+	
 	void drawGraphics(){
 		synchronized(gc){
 			gc.clear();
@@ -133,7 +177,12 @@ public class MainGame {
 			for(Enemy enemy : enemyList) {
 				gc.fillOval(enemy.x, enemy.y, enemy.width, enemy.height);
 			}
+			gc.setColor(Color.RED);
+			for (Bullet b : bulletList) {
+				gc.drawRect(b.x, b.y, b.width, b.height);
+			}
 		}
+		gc.setTitle("" + bulletList.size());
 	}
 
 
