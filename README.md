@@ -27,5 +27,7 @@ See the code here in the [stage3 branch](https://github.com/salamander2/Animatio
 
 See the code here in the [stage4 branch](https://github.com/salamander2/AnimationGame/tree/Stage4). 
 
+## Stage 6 : add lasers/bullets. Win if all of the enemies have been shot.
+
 _I'm putting it in separate branches so that students who are behind and want to learn :bulb: can still work through it stage by stage, 
 trying their own code before looking at my answers._
