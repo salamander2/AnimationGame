@@ -17,7 +17,7 @@ public class MainGame {
 	final static int SLEEP = 1;
 	final static int MAXENEMIES = 10;
 	final static int MAXBULLETS = 7;
-	final static int SHOOTINGDELAY = 300; //milliseconds
+	final static int SHOOTINGDELAY = 100; //milliseconds
 
 	//status constants
 	final static int PLAYING = 1;
@@ -49,7 +49,7 @@ public class MainGame {
 			}
 			drawGraphics();
 
-			if (gc.getKeyCode() == 'Q') status = QUIT;
+			if (gc.getKeyCode() == 27) status = QUIT;  //ESCAPE key now quits. I kept hitting 'Q' by mistake
 			if ( checkWin() ) status = WIN;
 			if (player.lives < 1) status = LOSE;
 			gc.sleep(SLEEP);
@@ -85,12 +85,15 @@ public class MainGame {
 
 	long lastTime = System.currentTimeMillis();
 	void shoot(){
-		//if (bulletList.size() >= MAXBULLETS) return;
+		//this controls how many bullets can be on the screen at one time
+		if (bulletList.size() >= MAXBULLETS) return;
+
+		//this controls the firing delay
 		long now = System.currentTimeMillis();
 		int delay = (int)(now - lastTime);
 		if (delay < SHOOTINGDELAY) return;
-
 		lastTime = now;
+
 		bulletList.add(new Bullet(player.x+player.width, player.y));
 
 	}
