@@ -1,4 +1,4 @@
-# AnimationGame -- Stage 4 code
+# AnimationGame -- Stage 6 code
 Programming a side scrolling animation game for ICS3U/4C
 
 :boom: Requires HSA2 graphics library :boom: 
